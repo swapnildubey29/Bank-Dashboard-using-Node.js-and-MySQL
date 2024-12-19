@@ -1,0 +1,30 @@
+require('dotenv').config()
+const express = require("express")
+const bodyParser = require("body-parser")
+const chalk = require("chalk")
+const mysql = require("./config/db")
+// const path = require("path")
+const app = express()
+const routes = require('./routes/index')
+
+//File Configuration
+app.set('view engine','ejs')
+app.set('views', __dirname + '/views')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use('/assets',express.static(__dirname + '/views/assets'))
+app.use("/",routes)
+
+
+mysql.query("SELECT 1",(err) =>{
+    if(err){
+        console.err("Error testing MySQL connection:", err.message)
+        return;
+    }
+    console.log(chalk.bgCyan.white("MySQL DB Connected"))
+
+    const port = process.env.PORT
+    app.listen(port, () => {
+        console.log(chalk.bgMagenta.white(`Server is running on ${port}`))
+    })
+})
