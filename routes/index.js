@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { signup, login } = require('../controllers/IndexController')
+const { signup, login, verifyJwt} = require('../controllers/IndexController')
 
 // Rendering Homepage
 router.get('/', (req,res) => {
@@ -25,5 +25,7 @@ router.post('/signup',signup)
 // Route to Login
 router.post('/login',login)
 
+//Route to verfyJwt
+router.post('/verifyJwt',verifyJwt)
 
 module.exports = router

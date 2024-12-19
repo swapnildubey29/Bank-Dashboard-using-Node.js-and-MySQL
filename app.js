@@ -5,6 +5,7 @@ const chalk = require("chalk")
 const mysql = require("./config/db")
 const app = express()
 const routes = require('./routes/index')
+const cookieParser = require('cookie-parser')
 
 //File Configuration
 app.set('view engine','ejs')
@@ -13,6 +14,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/assets',express.static(__dirname + '/views/assets'))
 app.use("/",routes)
+app.use(cookieParser())
+
+//cookie configuration
+app.get('/getcookie', async function(req,res){
+    res.send(await req.cookies)
+})
 
 //Listen
 mysql.query("SELECT 1",(err) =>{

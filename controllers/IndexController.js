@@ -1,5 +1,5 @@
-const db = require("../config/db");
-const jwt = require("jsonwebtoken");
+const db = require("../config/db")
+const jwt = require("jsonwebtoken")
 
 const signup = async (req, res) => {
   // console.log('Signup route hit');
@@ -22,7 +22,7 @@ const signup = async (req, res) => {
       httpOnly: true,
     });
 
-    res.redirect("/dashboard");
+    res.redirect("/dashboard")
     //  console.log(token)
   });
 };
@@ -35,7 +35,7 @@ const login = async (req, res) => {
   db.query(query, [email, password], (err, result) => {
     if (err) {
       console.error("Error quering the database:", err);
-      return res.status(500).json({ message: "Database error" });
+      return res.status(500).json({ message: "Database error" })
     }
 
     //Generate JWT
@@ -50,6 +50,57 @@ const login = async (req, res) => {
     res.redirect("/dashboard")
     // console.log(token)
   });
+}
+
+//Verify JWT
+const verifyJwt = async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        error: "JWT token not provided",
+      });
+    }
+
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+    // Use the existing db instance
+    db.query(
+      "SELECT * FROM users WHERE email = ?",
+      [decoded.email],
+      (err, result) => {
+        if (err) {
+          console.error("Database error:", err.message);
+          return res.status(500).json({
+            success: false,
+            error: "Database error",
+          });
+        }
+
+        const user = result[0];
+        if (user) {
+          return res.json({
+            success: true,
+            redirect: "/dashboard",
+          });
+        } else {
+          return res.json({
+            success: false,
+            error: "User not found",
+          });
+        }
+      }
+    );
+  } catch (error) {
+    console.error("Error verifying JWT token:", error.message)
+    return res.status(401).json({
+      success: false,
+      error: error.message,
+    });
+  }
 };
 
-module.exports = { signup, login }
+module.exports = { signup, login, verifyJwt }
