@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,14 +12,14 @@
 <body>
   <div class="wrapper">
     <div class="title"><span>Login Form</span></div>
-    <form id="loginForm">
+    <form id="loginForm" action="/login" method="POST">
       <div class="row">
         <i class="fas fa-user"></i>
-        <input id="email" type="text"  placeholder="Email or Phone" required />
+        <input id="email" type="text" name="email" placeholder="Email or Phone" required />
       </div>
       <div class="row">
         <i class="fas fa-lock"></i>
-        <input id="password" type="password" placeholder="Password" required />
+        <input id="password" type="password" name="password" placeholder="Password" required />
       </div>
       <div class="pass"><a href="#">Forgot password?</a></div>
       <div class="row button">
@@ -29,41 +30,16 @@
   </div>
 </body>
 <script>
-  document.getElementById("loginForm").addEventListener("submit", function(event){
-          event.preventDefault()
-         const email = document.getElementById("email").value
-         const password = document.getElementById("password").value
+  document.getElementById("loginForm").addEventListener("submit", function (event) {
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
 
-         if(!email && !password){
-             alert("Please fill all the field")
-             return;
-         }
-          login(email,password)
+    if (!email && !password) {
+      event.preventDefault()
+      alert("Please fill all the field")
+      return;
+    }
   })
- 
-  function login(email, password) {
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),  
-    })
-    .then(response => response.json())  
-    .then(data => {
-      if (data.message) {
-        alert(data.message) 
-        if (data.success) {
-          window.location.href = "/dashboard";  
-        }
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error)
-      alert('An error occurred during login')
-    });
-  }
-    
-    
+
 </script>
 </html>
