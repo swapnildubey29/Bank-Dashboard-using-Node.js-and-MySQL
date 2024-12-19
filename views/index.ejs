@@ -46,7 +46,7 @@
     fetchCookie()
     const jwtToken = Cookies.get("jwt")
     if (jwtToken && typeof jwtToken === "string") {
-      verifyJWT(jwtToken);
+      verifyJWT(jwtToken)
     }
   });
 

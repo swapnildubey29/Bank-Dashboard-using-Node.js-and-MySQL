@@ -1,6 +1,7 @@
 const db = require("../config/db")
 const jwt = require("jsonwebtoken")
 
+//Signup
 const signup = async (req, res) => {
   // console.log('Signup route hit');
   const { name, email, password, confirmpassword } = req.body;
@@ -25,8 +26,9 @@ const signup = async (req, res) => {
     res.redirect("/dashboard")
     //  console.log(token)
   });
-};
+}
 
+//Login
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -67,7 +69,6 @@ const verifyJwt = async (req, res) => {
     // Verify the token
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
-    // Use the existing db instance
     db.query(
       "SELECT * FROM users WHERE email = ?",
       [decoded.email],
@@ -93,7 +94,7 @@ const verifyJwt = async (req, res) => {
           });
         }
       }
-    );
+    )
   } catch (error) {
     console.error("Error verifying JWT token:", error.message)
     return res.status(401).json({
@@ -101,6 +102,6 @@ const verifyJwt = async (req, res) => {
       error: error.message,
     });
   }
-};
+}
 
 module.exports = { signup, login, verifyJwt }
