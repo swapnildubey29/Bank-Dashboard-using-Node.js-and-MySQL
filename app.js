@@ -3,19 +3,18 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const chalk = require("chalk")
 const mysql = require("./config/db")
-// const path = require("path")
 const app = express()
 const routes = require('./routes/index')
 
 //File Configuration
 app.set('view engine','ejs')
 app.set('views', __dirname + '/views')
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/assets',express.static(__dirname + '/views/assets'))
 app.use("/",routes)
 
-
+//Listen
 mysql.query("SELECT 1",(err) =>{
     if(err){
         console.err("Error testing MySQL connection:", err.message)
