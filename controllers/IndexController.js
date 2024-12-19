@@ -1,5 +1,5 @@
-const db = require("../config/db")
-const jwt = require('jsonwebtoken')
+const db = require("../config/db");
+const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   // console.log('Signup route hit');
@@ -9,24 +9,23 @@ const signup = async (req, res) => {
 
   db.query(query, [name, email, password], (err, result) => {
     if (err) {
-      console.error("Error inserting data:", err)
-      return res.status(500).send("Error saving data to database")
+      console.error("Error inserting data:", err);
+      return res.status(500).send("Error saving data to database");
     }
-   
+
     //Generate JWT
-    const token = jwt.sign({email}, process.env.SECRET_KEY, {
+    const token = jwt.sign({ email }, process.env.SECRET_KEY, {
       expiresIn: "10d",
-    })
-    res.cookie("jwt", token,{
+    });
+    res.cookie("jwt", token, {
       maxAge: 10 * 24 * 60 * 1000,
       httpOnly: true,
-    })
+    });
 
-    res.redirect("/dashboard")
-  //  console.log(token)
-
-  })
-}
+    res.redirect("/dashboard");
+    //  console.log(token)
+  });
+};
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -35,22 +34,22 @@ const login = async (req, res) => {
 
   db.query(query, [email, password], (err, result) => {
     if (err) {
-      console.error("Error quering the database:", err)
-      return res.status(500).json({ message: "Database error" })
+      console.error("Error quering the database:", err);
+      return res.status(500).json({ message: "Database error" });
     }
-    
+
     //Generate JWT
-    const token = jwt.sign({email}, process.env.SECRET_KEY, {
+    const token = jwt.sign({ email }, process.env.SECRET_KEY, {
       expiresIn: "10d",
-    })
-    res.cookie("jwt", token,{
+    });
+    res.cookie("jwt", token, {
       maxAge: 10 * 24 * 60 * 1000,
       httpOnly: true,
-    })
+    });
 
     res.redirect("/dashboard")
-   // console.log(token)
-  })
-}
+    // console.log(token)
+  });
+};
 
 module.exports = { signup, login }
