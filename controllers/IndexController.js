@@ -1,57 +1,76 @@
 const db = require("../config/db")
 const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer")
+const bcrypt = require("bcrypt")
 
 //Signup
 const signup = async (req, res) => {
-  // console.log('Signup route hit');
   const { name, email, password, confirmpassword } = req.body;
-  // console.log('Data received:', { name, email, password });
-  const query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
 
-  db.query(query, [name, email, password], (err, result) => {
-    if (err) {
-      console.error("Error inserting data:", err)
-      return res.status(500).send("Error saving data to database")
-    }
+  if (password !== confirmpassword) {
+      return res.status(400).send("Passwords do not match");
+  }
 
-    //Generate JWT
-    const token = jwt.sign({ email }, process.env.SECRET_KEY, {
-      expiresIn: "10d",
-    });
-    res.cookie("jwt", token, {
-      maxAge: 10 * 24 * 60 * 1000,
-      httpOnly: true,
-    });
+  try {
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    res.redirect("/dashboard");
-    //  console.log(token)
-  });
+      const query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+
+      db.query(query, [name, email, hashedPassword], (err, result) => {
+          if (err) {
+              console.error("Error inserting data:", err);
+              return res.status(500).send("Error saving data to database");
+          }
+
+          // Generate JWT
+          const token = jwt.sign({ email }, process.env.SECRET_KEY, {
+              expiresIn: "10d",
+          });
+
+          res.cookie("jwt", token, { maxAge: 10 * 24 * 60 * 1000,httpOnly: true,
+          });
+
+          res.redirect("/dashboard");
+      });
+  } catch (error) {
+      console.error("Error during signup:", error);
+      res.status(500).send("An internal server error occurred");
+  }
 };
 
 //Login
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const query = "SELECT * FROM users WHERE email = ? AND password = ?";
+  const query = "SELECT * FROM users WHERE email = ?";
 
-  db.query(query, [email, password], (err, result) => {
+  db.query(query, [email], async (err, result) => {
     if (err) {
-      console.error("Error quering the database:", err);
+      console.error("Error querying the database:", err);
       return res.status(500).json({ message: "Database error" });
     }
 
-    //Generate JWT
+    if (result.length === 0) {
+      return  res.redirect('/signup')
+    }
+
+    const user = result[0]
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.redirect('/forgotpassword')
+    }
+
+    // Generate JWT
     const token = jwt.sign({ email }, process.env.SECRET_KEY, {
       expiresIn: "10d",
     });
-    res.cookie("jwt", token, {
-      maxAge: 10 * 24 * 60 * 1000,
-      httpOnly: true,
-    });
+
+    res.cookie("jwt", token, {maxAge: 10 * 24 * 60 * 1000,httpOnly: true, });
 
     res.redirect("/dashboard");
-    // console.log(token)
+    // console.log(token);
   });
 };
 
@@ -67,7 +86,6 @@ const verifyJwt = async (req, res) => {
       });
     }
 
-    // Verify the token
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
     db.query(
@@ -96,7 +114,8 @@ const verifyJwt = async (req, res) => {
         }
       }
     );
-  } catch (error) {
+  }
+   catch (error) {
     console.error("Error verifying JWT token:", error.message);
     return res.status(401).json({
       success: false,
@@ -121,15 +140,15 @@ const sendOtp = async (req, res) => {
   const otp = generateOtp();
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+    host: 'smtp.gmail.com', 
+    port: 587, 
+    secure: false, 
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
+      user: process.env.EMAIL, 
+      pass: process.env.PASSWORD, 
     },
-    debug: true,
   });
+  
 
   const mailOption = {
     from: '"ABC-BANK" <ABC-bank@gmail.com>',
@@ -151,10 +170,12 @@ const sendOtp = async (req, res) => {
 
     db.query(query, [email, otp], (err) => {
       if (err) {
-        console.error("Database error while storing OTP:", err)
-        return res.status(500).json({ message: "Failed to store OTP", error: err })
+        console.error("Database error while storing OTP:", err);
+        return res
+          .status(500)
+          .json({ message: "Failed to store OTP", error: err });
       }
-      res.status(200).json({ response: "OTP sent successfully" })
+      res.status(200).json({ response: "OTP sent successfully" });
     });
   } catch (error) {
     console.error("Error Sending OTP:", error);
@@ -173,22 +194,67 @@ const verifyingOtp = async (req, res) => {
   const query = `SELECT otp FROM resetotp WHERE email = ?`;
   db.query(query, [email], (err, results) => {
     if (err) {
-      console.error("Database error while verifying OTP:", err)
-      return res.status(500).json({ message: "Failed to verify OTP", error: err })
+      console.error("Database error while verifying OTP:", err);
+      return res
+        .status(500)
+        .json({ message: "Failed to verify OTP", error: err });
     }
 
-    const clientOtp = String(otp).trim()
-    const dbOtp = String(results[0].otp).trim()
+    const clientOtp = String(otp).trim();
+    const dbOtp = String(results[0].otp).trim();
 
     if (clientOtp === dbOtp) {
       return res.status(200).json({
         message: "OTP Verified Successfully",
-        redirect: "/resetpassword",
       });
     } else {
-      return res.status(400).json({ message: "Invalid OTP" })
+      return res.status(400).json({ message: "Invalid OTP" });
     }
-  })
-}
+  });
+};
 
-module.exports = { signup, login, verifyJwt, sendOtp, verifyingOtp }
+//Reset Password
+const resetpassword = async (req, res) => {
+  const newpassword = req.body;
+
+  if (!newpassword || !email) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Email and password are required." });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(newpassword, 10);
+
+    const [rows] = await pool.execute(
+      `UPDATE users SET password = ? WHERE email = ?`,
+      [hashedPassword, email]
+    );
+
+    if (rows.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
+    }
+
+    res.json({
+      success: true,
+      message: "Password updated successfully.",
+      redirect: "/dashboard",
+    });
+  } catch (error) {
+    console.error("Error updating password:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "An internal server error occurred." });
+  }
+};
+
+module.exports = {
+  signup,
+  login,
+  verifyJwt,
+  sendOtp,
+  verifyingOtp,
+  resetpassword,
+};

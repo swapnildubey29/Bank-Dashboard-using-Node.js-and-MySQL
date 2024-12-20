@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { signup, login, verifyJwt, sendOtp, verifyingOtp} = require('../controllers/IndexController')
+const { signup, login, verifyJwt, sendOtp, verifyingOtp, resetpassword} = require('../controllers/IndexController')
 
 // Rendering Homepage
 router.get('/', (req,res) => {
@@ -22,10 +22,6 @@ router.get('/forgotpassword', (req,res) => {
     res.render('forgotpassword')
 })
 
-// Rendering Reset password page
-router.get('/resetpassword', (req,res) => {
-    res.render('resetpassword')
-})
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -44,6 +40,8 @@ router.post('/sendOtp',sendOtp)
 //Router to Verify OTP
 router.post('/verifyingOtp',verifyingOtp)
 
+//Router to Reset password
+router.put('/resetpassword', resetpassword)
 
 
 module.exports = router
