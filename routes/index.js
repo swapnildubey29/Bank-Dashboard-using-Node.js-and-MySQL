@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { signup, login, verifyJwt, forgotpassword} = require('../controllers/IndexController')
+const { signup, login, verifyJwt, sendOtp} = require('../controllers/IndexController')
 
 // Rendering Homepage
 router.get('/', (req,res) => {
@@ -32,6 +32,9 @@ router.post('/login',login)
 
 //Route to verfyJwt
 router.post('/verifyJwt',verifyJwt)
+
+//Router to Send OTP
+router.post('/sendOtp',sendOtp)
 
 
 

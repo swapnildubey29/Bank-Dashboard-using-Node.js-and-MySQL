@@ -1,5 +1,6 @@
-const db = require("../config/db")
-const jwt = require("jsonwebtoken")
+const db = require("../config/db");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 //Signup
 const signup = async (req, res) => {
@@ -10,8 +11,8 @@ const signup = async (req, res) => {
 
   db.query(query, [name, email, password], (err, result) => {
     if (err) {
-      console.error("Error inserting data:", err)
-      return res.status(500).send("Error saving data to database")
+      console.error("Error inserting data:", err);
+      return res.status(500).send("Error saving data to database");
     }
 
     //Generate JWT
@@ -23,10 +24,10 @@ const signup = async (req, res) => {
       httpOnly: true,
     });
 
-    res.redirect("/dashboard")
+    res.redirect("/dashboard");
     //  console.log(token)
   });
-}
+};
 
 //Login
 const login = async (req, res) => {
@@ -37,7 +38,7 @@ const login = async (req, res) => {
   db.query(query, [email, password], (err, result) => {
     if (err) {
       console.error("Error quering the database:", err);
-      return res.status(500).json({ message: "Database error" })
+      return res.status(500).json({ message: "Database error" });
     }
 
     //Generate JWT
@@ -49,10 +50,10 @@ const login = async (req, res) => {
       httpOnly: true,
     });
 
-    res.redirect("/dashboard")
+    res.redirect("/dashboard");
     // console.log(token)
   });
-}
+};
 
 //Verify JWT
 const verifyJwt = async (req, res) => {
@@ -94,24 +95,73 @@ const verifyJwt = async (req, res) => {
           });
         }
       }
-    )
+    );
   } catch (error) {
-    console.error("Error verifying JWT token:", error.message)
+    console.error("Error verifying JWT token:", error.message);
     return res.status(401).json({
       success: false,
       error: error.message,
     });
   }
-}
+};
+
+//Generate OTP
+const generateOtp = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
 
 //Forget Password
-const sendOtp = async (req,res) => {
-    const email = req.body
-    
-}
+const sendOtp = async (req, res) => {
+  const { email } = req.body;
 
-const verifyingOtp = async (req,res) => {
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
 
-}
+  const otp = generateOtp();
 
-module.exports = { signup, login, verifyJwt, sendOtp, verifyingOtp}
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+    },
+    debug: true,
+  });
+
+  const mailOption = {
+    from: '"ABC-BANK" <ABC-bank@gmail.com>',
+    to: email,
+    subject: "Your OTP for Password Reset",
+    text: `Your OTP for password reset is ${otp}. It is valid for 10 minutes.`,
+    html: `<p>Your OTP for password reset is <b>${otp}</b>. It is valid for 10 minutes.</p>`,
+  };
+
+  try {
+    await transporter.sendMail(mailOption);
+    console.log(`OTP sent to ${email}: ${otp}`);
+
+    const query = `
+      INSERT INTO resetotp (email, otp)
+      VALUES (?, ?)
+      ON DUPLICATE KEY UPDATE otp = VALUES(otp);
+    `;
+
+    db.query(query, [email, otp], (err) => {
+      if (err) {
+        console.error("Database error while storing OTP:", err);
+        return res.status(500).json({ message: "Failed to store OTP", error: err });
+      }
+      res.status(200)
+    });
+  } catch (error) {
+    console.error("Error Sending OTP:", error);
+    res.status(500).json({ message: "Failed to send OTP", error });
+  }
+};
+
+const verifyingOtp = async (req, res) => {};
+
+module.exports = { signup, login, verifyJwt, sendOtp, verifyingOtp };
