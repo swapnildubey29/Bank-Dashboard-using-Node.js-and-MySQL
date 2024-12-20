@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { signup, login, verifyJwt} = require('../controllers/IndexController')
+const { signup, login, verifyJwt, forgotpassword} = require('../controllers/IndexController')
 
 // Rendering Homepage
 router.get('/', (req,res) => {
@@ -12,9 +12,14 @@ router.get('/signup', (req,res) => {
     res.render('signup')
 })
 
-// Rendering to Dashboard
+// Rendering Dashboard page
 router.get('/dashboard', (req,res) => {
     res.render('dashboard')
+})
+
+// Rendering Forget password page
+router.get('/forgotpassword', (req,res) => {
+    res.render('forgotpassword')
 })
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -27,5 +32,7 @@ router.post('/login',login)
 
 //Route to verfyJwt
 router.post('/verifyJwt',verifyJwt)
+
+
 
 module.exports = router

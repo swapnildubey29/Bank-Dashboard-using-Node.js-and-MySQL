@@ -10,8 +10,8 @@ const signup = async (req, res) => {
 
   db.query(query, [name, email, password], (err, result) => {
     if (err) {
-      console.error("Error inserting data:", err);
-      return res.status(500).send("Error saving data to database");
+      console.error("Error inserting data:", err)
+      return res.status(500).send("Error saving data to database")
     }
 
     //Generate JWT
@@ -104,4 +104,14 @@ const verifyJwt = async (req, res) => {
   }
 }
 
-module.exports = { signup, login, verifyJwt }
+//Forget Password
+const sendOtp = async (req,res) => {
+    const email = req.body
+    
+}
+
+const verifyingOtp = async (req,res) => {
+
+}
+
+module.exports = { signup, login, verifyJwt, sendOtp, verifyingOtp}
