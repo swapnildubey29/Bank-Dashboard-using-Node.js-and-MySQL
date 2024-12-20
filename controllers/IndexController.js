@@ -1,6 +1,6 @@
-const db = require("../config/db");
-const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
+const db = require("../config/db")
+const jwt = require("jsonwebtoken")
+const nodemailer = require("nodemailer")
 
 //Signup
 const signup = async (req, res) => {
@@ -24,7 +24,7 @@ const signup = async (req, res) => {
       httpOnly: true,
     });
 
-    res.redirect("/dashboard");
+    res.redirect("/dashboard")
     //  console.log(token)
   });
 };
@@ -37,8 +37,8 @@ const login = async (req, res) => {
 
   db.query(query, [email, password], (err, result) => {
     if (err) {
-      console.error("Error quering the database:", err);
-      return res.status(500).json({ message: "Database error" });
+      console.error("Error quering the database:", err)
+      return res.status(500).json({ message: "Database error" })
     }
 
     //Generate JWT
@@ -50,7 +50,7 @@ const login = async (req, res) => {
       httpOnly: true,
     });
 
-    res.redirect("/dashboard");
+    res.redirect("/dashboard")
     // console.log(token)
   });
 };
@@ -68,14 +68,14 @@ const verifyJwt = async (req, res) => {
     }
 
     // Verify the token
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.SECRET_KEY)
 
     db.query(
       "SELECT * FROM users WHERE email = ?",
       [decoded.email],
       (err, result) => {
         if (err) {
-          console.error("Database error:", err.message);
+          console.error("Database error:", err.message)
           return res.status(500).json({
             success: false,
             error: "Database error",
@@ -97,7 +97,7 @@ const verifyJwt = async (req, res) => {
       }
     );
   } catch (error) {
-    console.error("Error verifying JWT token:", error.message);
+    console.error("Error verifying JWT token:", error.message)
     return res.status(401).json({
       success: false,
       error: error.message,
@@ -107,7 +107,7 @@ const verifyJwt = async (req, res) => {
 
 //Generate OTP
 const generateOtp = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return Math.floor(100000 + Math.random() * 900000).toString()
 };
 
 //Forget Password
@@ -115,7 +115,7 @@ const sendOtp = async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
-    return res.status(400).json({ message: "Email is required" });
+    return res.status(400).json({ message: "Email is required" })
   }
 
   const otp = generateOtp();
@@ -140,8 +140,8 @@ const sendOtp = async (req, res) => {
   };
 
   try {
-    await transporter.sendMail(mailOption);
-    console.log(`OTP sent to ${email}: ${otp}`);
+    await transporter.sendMail(mailOption)
+    console.log(`OTP sent to ${email}: ${otp}`)
 
     const query = `
       INSERT INTO resetotp (email, otp)
@@ -150,18 +150,23 @@ const sendOtp = async (req, res) => {
     `;
 
     db.query(query, [email, otp], (err) => {
-      if (err) {
-        console.error("Database error while storing OTP:", err);
-        return res.status(500).json({ message: "Failed to store OTP", error: err });
+      if (err){
+        console.error("Database error while storing OTP:", err)
+        return res.status(500).json({ message: "Failed to store OTP", error: err })
       }
-      res.status(200)
-    });
+      res.status(200).json({ response: 'OTP sent successfully' });
+    })
   } catch (error) {
     console.error("Error Sending OTP:", error);
-    res.status(500).json({ message: "Failed to send OTP", error });
+    res.status(500).json({ message: "Failed to send OTP", error })
   }
 };
 
-const verifyingOtp = async (req, res) => {};
+const verifyingOtp = async (req, res) => {
+     const otp = req.body
+     console.log(otp)
+
+
+}
 
 module.exports = { signup, login, verifyJwt, sendOtp, verifyingOtp };
