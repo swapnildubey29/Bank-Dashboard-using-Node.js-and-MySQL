@@ -8,34 +8,46 @@ const signup = async (req, res) => {
   const { name, email, password, confirmpassword } = req.body;
 
   if (password !== confirmpassword) {
-    return res.status(400).send("Passwords do not match")
+    return res.status(400).send("Passwords do not match");
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10)
-
-    const query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-
-    db.query(query, [name, email, hashedPassword], (err, result) => {
+    const checkQuery = "SELECT * FROM users WHERE email = ?";
+    db.query(checkQuery, [email], async (err, results) => {
       if (err) {
-        console.error("Error inserting data:", err)
-        return res.status(500).send("Error saving data to database")
+        console.error("Error checking user existence:", err)
+        return res.status(500).send("An internal server error occurred")
       }
 
-      // Generate JWT
-      const token = jwt.sign({ email }, process.env.SECRET_KEY, {
-        expiresIn: "10d",
+      if (results.length > 0) {
+        return res.status(400).send("User already exists")
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10)
+
+      const insertQuery = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+      db.query(insertQuery, [name, email, hashedPassword], (err, result) => {
+        if (err) {
+          console.error("Error inserting data:", err);
+          return res.status(500).send("Error saving data to database")
+        }
+
+        // Generate JWT
+        const token = jwt.sign({ email }, process.env.SECRET_KEY, {
+          expiresIn: "10d",
+        });
+
+        res.cookie("jwt", token, { maxAge: 10 * 24 * 60 * 1000, httpOnly: true })
+
+        res.redirect("/dashboard")
       });
-
-      res.cookie("jwt", token, { maxAge: 10 * 24 * 60 * 1000, httpOnly: true })
-
-      res.redirect("/dashboard")
     });
   } catch (error) {
     console.error("Error during signup:", error)
     res.status(500).send("An internal server error occurred")
   }
 };
+
 
 //Login
 const login = async (req, res) => {
@@ -174,9 +186,7 @@ const sendOtp = async (req, res) => {
     db.query(query, [email, otp], (err) => {
       if (err) {
         console.error("Database error while storing OTP:", err)
-        return res
-          .status(500)
-          .json({ message: "Failed to store OTP", error: err })
+        return res.status(500).json({ message: "Failed to store OTP", error: err })
       }
       res.status(200).json({ response: "OTP sent successfully" })
     });
@@ -198,9 +208,7 @@ const verifyingOtp = async (req, res) => {
   db.query(query, [email], (err, results) => {
     if (err) {
       console.error("Database error while verifying OTP:", err)
-      return res
-        .status(500)
-        .json({ message: "Failed to verify OTP", error: err })
+      return res.status(500).json({ message: "Failed to verify OTP", error: err })
     }
 
     const clientOtp = String(otp).trim()
@@ -244,12 +252,14 @@ const resetpassword = async (req, res) => {
         return res.status(404).json({ success: false, message: "User not found." });
       }
 
-      res.json({
-        success: true,
-        message: "Password updated successfully.",
-        redirect: "/dashboard",
-      });
-    });
+      res.json({success: true, message: "Password updated successfully.",redirect: "/dashboard",})
+
+      const token = jwt.sign({ email }, process.env.SECRET_KEY, {
+        expiresIn: "10d",
+      })
+
+      res.cookie("jwt", token, { maxAge: 10 * 24 * 60 * 1000, httpOnly: true });
+    })
   } catch (error) {
     console.error("Error hashing password:", error)
     res.status(500).json({ success: false, message: "An internal server error occurred." })
