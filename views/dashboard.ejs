@@ -1,364 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Bank Dashboard</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel="stylesheet" href="./assets/dashboard.css" />
-  </head>
-  <body>
-    <div class="app">
-      <header class="app-header">
-        <div class="app-header-logo">
-          <div class="logo">
-            <span class="logo-icon">
-              <img src="https://assets.codepen.io/285131/almeria-logo.svg" />
-            </span>
-            <h1 class="logo-title">
-              <span>Almeria</span>
-              <span>NeoBank</span>
-            </h1>
-          </div>
-        </div>
-        <div class="app-header-navigation">
-          <div class="tabs">
-            <a href="#">
-              Overview
-            </a>
-            <a href="#" class="active">
-              Payments
-            </a>
-            <a href="#">
-              Cards
-            </a>
-            <a href="#">
-              Account
-            </a>
-            <a href="#">
-              System
-            </a>
-            <a href="#">
-              Business
-            </a>
-          </div>
-        </div>
-        <div class="app-header-actions">
-          <button class="user-profile">
-            <span>Matheo Peterson</span>
-            <span>
-              <img src="https://assets.codepen.io/285131/almeria-avatar.jpeg" />
-            </span>
-          </button>
-          <div class="app-header-actions-buttons">
-            <button class="icon-button large">
-              <i class="ph-magnifying-glass"></i>
-            </button>
-            <button class="icon-button large">
-              <i class="ph-bell"></i>
-            </button>
-          </div>
-        </div>
-        <div class="app-header-mobile">
-          <button class="icon-button large">
-            <i class="ph-list"></i>
-          </button>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="./assets/dashboard.css">
+     
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-      </header>
-      <div class="app-body">
-        <div class="app-body-navigation">
-          <nav class="navigation">
-            <a href="#">
-              <i class="ph-browsers"></i>
-              <span>Dashboard</span>
-            </a>
-            <a href="#">
-              <i class="ph-check-square"></i>
-              <span>Scheduled</span>
-            </a>
-            <a href="#">
-              <i class="ph-swap"></i>
-              <span>Transfers</span>
-            </a>
-            <a href="#">
-              <i class="ph-file-text"></i>
-              <span>Templates</span>
-            </a>
-            <a href="#">
-              <i class="ph-globe"></i>
-              <span>SWIFT</span>
-            </a>
-            <a href="#">
-              <i class="ph-clipboard-text"></i>
-              <span>Exchange</span>
-            </a>
-          </nav>
-          <footer class="footer">
-            <h1>Almeria<small>©</small></h1>
-            <div>
-              Almeria ©<br />
-              All Rights Reserved 2024
-            </div>
-          </footer>
+    <title>Admin Dashboard Panel</title>
+</head>
+<body>
+  <div class="app-container">
+    <div class="app-left">
+      <button class="close-menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="app-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>       </svg>
+        <span>Recruiter</span>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-list-item active">
+          <a class="nav-list-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-columns"><path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18"/></svg>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-list-item">
+          <a class="nav-list-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Jobs
+          </a>
+        </li>
+        <li class="nav-list-item">
+          <a class="nav-list-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            Applications
+          </a>
+        </li>
+        <li class="nav-list-item">
+          <a class="nav-list-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Team
+          </a>
+        </li>
+        <li class="nav-list-item">
+          <a class="nav-list-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            Reports
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="app-main">
+      <div class="main-header-line">
+        <h1>Applications Dashboard</h1>
+        <div class="action-buttons">
+          <button class="open-right-area">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </button>
+        <button class="menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
         </div>
-        <div class="app-body-main-content">
-          <section class="service-section">
-            <h2>Service</h2>
-            <div class="service-section-header">
-              <div class="search-field">
-                <i class="ph-magnifying-glass"></i>
-                <input type="text" placeholder="Account number">
-              </div>
-              <div class="dropdown-field">
-                <select>
-                  <option>Home</option>
-                  <option>Work</option>
-                </select>
-                <i class="ph-caret-down"></i>
-              </div>
-              <button class="flat-button">
-                Search
-              </button>
+      </div>
+      <div class="chart-row three">
+        <div class="chart-container-wrapper">
+          <div class="chart-container">
+            <div class="chart-info-wrapper">
+              <h2>Applications</h2>
+              <span>20.5 K</span>
             </div>
-            <div class="mobile-only">
-              <button class="flat-button">
-                Toggle search
-              </button>
+            <div class="chart-svg">
+              <svg viewBox="0 0 36 36" class="circular-chart pink">
+        <path class="circle-bg" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+        <path class="circle" stroke-dasharray="30, 100" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+        <text x="18" y="20.35" class="percentage">30%</text>
+      </svg>
             </div>
-            <div class="tiles">
-              <article class="tile">
-                <div class="tile-header">
-                  <i class="ph-lightning-light"></i>
-                  <h3>
-                    <span>Electricity</span>
-                    <span>UrkEnergo LTD.</span>
-                  </h3>
-                </div>
-                <a href="#">
-                  <span>Go to service</span>
-                  <span class="icon-button">
-                    <i class="ph-caret-right-bold"></i>
-                  </span>
-                </a>
-              </article>
-              <article class="tile">
-                <div class="tile-header">
-                  <i class="ph-fire-simple-light"></i>
-                  <h3>
-                    <span>Heating Gas</span>
-                    <span>Gazprom UA</span>
-                  </h3>
-                </div>
-                <a href="#">
-                  <span>Go to service</span>
-                  <span class="icon-button">
-                    <i class="ph-caret-right-bold"></i>
-                  </span>
-                </a>
-              </article>
-              <article class="tile">
-                <div class="tile-header">
-                  <i class="ph-file-light"></i>
-                  <h3>
-                    <span>Tax online</span>
-                    <span>Kharkov 62 str.</span>
-                  </h3>
-                </div>
-                <a href="#">
-                  <span>Go to service</span>
-                  <span class="icon-button">
-                    <i class="ph-caret-right-bold"></i>
-                  </span>
-                </a>
-              </article>
-            </div>
-            <div class="service-section-footer">
-              <p>Services are paid according to the current state of the currency and tariff.</p>
-            </div>
-          </section>
-          <section class="transfer-section">
-            <div class="transfer-section-header">
-              <h2>Latest transfers</h2>
-              <div class="filter-options">
-                <p>Filter selected: more than 100 $</p>
-                <button class="icon-button">
-                  <i class="ph-funnel"></i>
-                </button>
-                <button class="icon-button">
-                  <i class="ph-plus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="transfers">
-              <div class="transfer">
-                <div class="transfer-logo">
-                  <img src="https://assets.codepen.io/285131/apple.svg" />
-                </div>
-                <dl class="transfer-details">
-                  <div>
-                    <dt>Apple Inc.</dt>
-                    <dd>Apple ID Payment</dd>
-                  </div>
-                  <div>
-                    <dt>4012</dt>
-                    <dd>Last four digits</dd>
-                  </div>
-                  <div>
-                    <dt>28 Oct. 21</dt>
-                    <dd>Date payment</dd>
-                  </div>
-                </dl>
-                <div class="transfer-number">
-                  - $ 550
-                </div>
-              </div>
-              <div class="transfer">
-                <div class="transfer-logo">
-                  <img src="https://assets.codepen.io/285131/pinterest.svg" />
-                </div>
-                <dl class="transfer-details">
-                  <div>
-                    <dt>Pinterest</dt>
-                    <dd>2 year subscription</dd>
-                  </div>
-                  <div>
-                    <dt>5214</dt>
-                    <dd>Last four digits</dd>
-                  </div>
-                  <div>
-                    <dt>26 Oct. 21</dt>
-                    <dd>Date payment</dd>
-                  </div>
-                </dl>
-                <div class="transfer-number">
-                  - $ 120
-                </div>
-              </div>
-              <div class="transfer">
-                <div class="transfer-logo">
-                  <img src="https://assets.codepen.io/285131/warner-bros.svg" />
-                </div>
-                <dl class="transfer-details">
-                  <div>
-                    <dt>Warner Bros.</dt>
-                    <dd>Cinema</dd>
-                  </div>
-                  <div>
-                    <dt>2228</dt>
-                    <dd>Last four digits</dd>
-                  </div>
-                  <div>
-                    <dt>22 Oct. 21</dt>
-                    <dd>Date payment</dd>
-                  </div>
-                </dl>
-                <div class="transfer-number">
-                  - $ 70
-                </div>
-              </div>
-            </div>
-          </section>
+          </div>
         </div>
-        <div class="app-body-sidebar">
-          <section class="payment-section">
-            <h2>New Payment</h2>
-            <div class="payment-section-header">
-              <p>Choose a card to transfer money</p>
-              <div>
-                <button class="card-button mastercard">
-                  <svg width="2001" height="1237" viewBox="0 0 2001 1237" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="a624784f2834e21c94a1c0c9a58bbbaa">
-                      <path id="7869b07bea546aa59a5ee138adbcfd5a" d="M1270.57 1104.15H729.71V132.15H1270.58L1270.57 1104.15Z" fill="currentColor"></path>
-                      <path id="b54e3ab4d7044a9f288082bc6b864ae6" d="M764 618.17C764 421 856.32 245.36 1000.08 132.17C891.261 46.3647 756.669 -0.204758 618.09 9.6031e-07C276.72 9.6031e-07 0 276.76 0 618.17C0 959.58 276.72 1236.34 618.09 1236.34C756.672 1236.55 891.268 1189.98 1000.09 1104.17C856.34 991 764 815.35 764 618.17Z" fill="currentColor"></path>
-                      <path id="67f94b4d1b83252a6619ed6e0cc0a3a1" d="M2000.25 618.17C2000.25 959.58 1723.53 1236.34 1382.16 1236.34C1243.56 1236.54 1108.95 1189.97 1000.11 1104.17C1143.91 990.98 1236.23 815.35 1236.23 618.17C1236.23 420.99 1143.91 245.36 1000.11 132.17C1108.95 46.3673 1243.56 -0.201169 1382.15 -2.24915e-05C1723.52 -2.24915e-05 2000.24 276.76 2000.24 618.17" fill="currentColor"></path>
-                    </g>
-                  </svg>
-                </button>
-                <button class="card-button visa active">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="2500" height="2500" viewBox="0 0 141.732 141.732">
-                    <g fill="currentColor">
-                      <path d="M62.935 89.571h-9.733l6.083-37.384h9.734zM45.014 52.187L35.735 77.9l-1.098-5.537.001.002-3.275-16.812s-.396-3.366-4.617-3.366h-15.34l-.18.633s4.691.976 10.181 4.273l8.456 32.479h10.141l15.485-37.385H45.014zM121.569 89.571h8.937l-7.792-37.385h-7.824c-3.613 0-4.493 2.786-4.493 2.786L95.881 89.571h10.146l2.029-5.553h12.373l1.14 5.553zm-10.71-13.224l5.114-13.99 2.877 13.99h-7.991zM96.642 61.177l1.389-8.028s-4.286-1.63-8.754-1.63c-4.83 0-16.3 2.111-16.3 12.376 0 9.658 13.462 9.778 13.462 14.851s-12.075 4.164-16.06.965l-1.447 8.394s4.346 2.111 10.986 2.111c6.642 0 16.662-3.439 16.662-12.799 0-9.72-13.583-10.625-13.583-14.851.001-4.227 9.48-3.684 13.645-1.389z" />
-                    </g>
-                    <path d="M34.638 72.364l-3.275-16.812s-.396-3.366-4.617-3.366h-15.34l-.18.633s7.373 1.528 14.445 7.253c6.762 5.472 8.967 12.292 8.967 12.292z" fill="currentColor" />
-                    <path fill="none" d="M0 0h141.732v141.732H0z" />
-                  </svg>
-                </button>
+        <div class="chart-container-wrapper">
+          <div class="chart-container">
+            <div class="chart-info-wrapper">
+              <h2>Shortlisted</h2>
+              <span>5.5 K</span>
+            </div>
+            <div class="chart-svg">
+              <svg viewBox="0 0 36 36" class="circular-chart blue">
+        <path class="circle-bg" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+        <path class="circle" stroke-dasharray="60, 100" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+        <text x="18" y="20.35" class="percentage">60%</text>
+      </svg>
+            </div>
+          </div>
+        </div>
+        <div class="chart-container-wrapper">
+          <div class="chart-container">
+            <div class="chart-info-wrapper">
+              <h2>On-hold</h2>
+              <span>10.5 K</span>
+            </div>
+             <div class="chart-svg">
+              <svg viewBox="0 0 36 36" class="circular-chart orange">
+        <path class="circle-bg" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+        <path class="circle" stroke-dasharray="90, 100" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+        <text x="18" y="20.35" class="percentage">90%</text>
+      </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-row two">
+        <div class="chart-container-wrapper big">
+          <div class="chart-container">
+            <div class="chart-container-header">
+              <h2>Top Active Jobs</h2>
+              <span>Last 30 days</span>
+            </div>
+            <div class="line-chart">
+              <canvas id="chart"></canvas>
+            </div>
+            <div class="chart-data-details">
+              <div class="chart-details-header"></div>
+            </div>
+          </div>
+        </div>
+        <div class="chart-container-wrapper small">
+          <div class="chart-container">
+            <div class="chart-container-header">
+              <h2>Acquisitions</h2>
+              <span href="#">This month</span>
+            </div>
+            <div class="acquisitions-bar">
+             <span class="bar-progress rejected" style="width:8%;"></span>
+              <span class="bar-progress on-hold" style="width:10%;"></span>
+              <span class="bar-progress shortlisted" style="width:18%;"></span>
+              <span class="bar-progress applications" style="width:64%;"></span>
+            </div>
+            <div class="progress-bar-info">
+              <span class="progress-color applications"></span>
+              <span class="progress-type">Applications</span>
+              <span class="progress-amount">64%</span>
+            </div>
+            <div class="progress-bar-info">
+              <span class="progress-color shortlisted"></span>
+              <span class="progress-type">Shortlisted</span>
+              <span class="progress-amount">18%</span>
+            </div>
+            <div class="progress-bar-info">
+              <span class="progress-color on-hold"></span>
+              <span class="progress-type">On-hold</span>
+              <span class="progress-amount">10%</span>
+            </div>
+            <div class="progress-bar-info">
+              <span class="progress-color rejected"></span>
+              <span class="progress-type">Rejected</span>
+              <span class="progress-amount">8%</span>
+            </div>
+          </div>
+          <div class="chart-container applicants">
+            <div class="chart-container-header">
+              <h2>New Applicants</h2>
+              <span>Today</span>
+            </div>
+            <div class="applicant-line">
+              <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile">
+              <div class="applicant-info">
+                <span>Emma Ray</span>
+                <p>Applied for <strong>Product Designer</strong></p>
               </div>
             </div>
-            <div class="payments">
-              <div class="payment">
-                <div class="card green">
-                  <span>01/22</span>
-                  <span>
-                    •••• 4012
-                  </span>
-                </div>
-                <div class="payment-details">
-                  <h3>Internet</h3>
-                  <div>
-                    <span>$ 2,110</span>
-                    <button class="icon-button">
-                      <i class="ph-caret-right-bold"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="payment">
-                <div class="card olive">
-                  <span>12/23</span>
-                  <span>
-                    •••• 2228
-                  </span>
-                </div>
-                <div class="payment-details">
-                  <h3>Universal</h3>
-                  <div>
-                    <span>$ 5,621</span>
-                    <button class="icon-button">
-                      <i class="ph-caret-right-bold"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="payment">
-                <div class="card gray">
-                  <span>03/22</span>
-                  <span>
-                    •••• 5214
-                  </span>
-                </div>
-                <div class="payment-details">
-                  <h3>Gold</h3>
-                  <div>
-                    <span>$ 3,473</span>
-                    <button class="icon-button">
-                      <i class="ph-caret-right-bold"></i>
-                    </button>
-                  </div>
-                </div>
+            <div class="applicant-line">
+              <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="profile">
+              <div class="applicant-info">
+                <span>Ricky James</span>
+                <p>Applied for <strong>IOS Developer</strong></p>
               </div>
             </div>
-            <div class="faq">
-              <p>Most frequently asked questions</p>
-              <div>
-                <label>Question</label>
-                <input type="text" placeholder="Type here">
+            <div class="applicant-line">
+              <img src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile">
+              <div class="applicant-info">
+                <span>Julia Wilson</span>
+                <p>Applied for <strong>UI Developer</strong></p>
               </div>
             </div>
-            <div class="payment-section-footer">
-              <button class="save-button">
-                Save
-              </button>
-              <button class="settings-button">
-                <i class="ph-gear"></i>
-                <span>More settings</span>
-              </button>
+            <div class="applicant-line">
+              <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="profile">
+              <div class="applicant-info">
+                <span>Jess Watson</span>
+                <p>Applied for <strong>Design Lead</strong></p>
+              </div>
             </div>
-          </section>
+            <div class="applicant-line">
+              <img src="https://images.unsplash.com/photo-1543965170-4c01a586684e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2232&q=80" alt="profile">
+              <div class="applicant-info">
+                <span>John Pellegrini</span>
+                <p>Applied for <strong>Back-End Developer</strong></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <script src="https://unpkg.com/phosphor-icons"></script>
-  </body>
+    <div class="app-right">
+      <button class="close-right">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="profile-box">
+        <div class="profile-photo-wrapper">
+          <img src="https://images.unsplash.com/photo-1551292831-023188e78222?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTE0fHxwb3J0cmFpdHxlbnwwfDB8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile">
+        </div>
+        <p class="profile-text">Julia Pellegrini</p>
+         <p class="profile-subtext">Recruiting Manager</p>
+      </div>
+      <div class="app-right-content">
+        <div class="app-right-section">
+        <div class="app-right-section-header">
+          <h2>Messages</h2>
+          <span class="notification-active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </span>
+        </div>
+        <div class="message-line">
+          <img src="https://images.unsplash.com/photo-1562159278-1253a58da141?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzB8fHBvcnRyYWl0JTIwbWFufGVufDB8MHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile">
+          <div class="message-text-wrapper">
+            <p class="message-text">Eric Clampton</p>
+            <p class="message-subtext">Have you planned any deadline for this?</p>
+          </div>
+        </div>
+        <div class="message-line">
+          <img src="https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=934&q=80" alt="profile">
+          <div class="message-text-wrapper">
+            <p class="message-text">Jess Flax</p>
+            <p class="message-subtext">Can we schedule another meeting for next thursday?</p>
+          </div>
+        </div>
+        <div class="message-line">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80" alt="profile">
+          <div class="message-text-wrapper">
+            <p class="message-text">Pam Halpert</p>
+            <p class="message-subtext">The candidate has been shorlisted.</p>
+          </div>
+        </div>
+      </div>
+      <div class="app-right-section">
+        <div class="app-right-section-header">
+          <h2>Activity</h2>
+          <span class="notification-active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </span>
+        </div>
+        <div class="activity-line">
+          <span class="activity-icon warning">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </span>
+          <div class="activity-text-wrapper">
+            <p class="activity-text">Your plan is expires in <strong>3 days.</strong></p>
+             <a class="activity-link" href="#">Renew Now</a>
+          </div>
+        </div>
+        <div class="activity-line">
+          <span class="activity-icon applicant">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </span>
+          <div class="activity-text-wrapper">
+            <p class="activity-text">There are <strong>3 new applications</strong> for <strong>UI Developer</strong></p>
+          </div>
+        </div>
+        <div class="activity-line">
+          <span class="activity-icon close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </span>
+          <div class="activity-text-wrapper">
+            <p class="activity-text">Your teammate, <strong>Wade Wilson</strong> has closed the job post of <strong>IOS Developer</strong></p>
+          </div>
+        </div>
+        <div class="activity-line">
+          <span class="activity-icon applicant">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </span>
+          <div class="activity-text-wrapper">
+            <p class="activity-text">There are <strong>4 new applications</strong> for <strong>Front-End Developer</strong></p>
+          </div>
+        </div>
+        <div class="activity-line">
+          <span class="activity-icon applicant">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </span>
+          <div class="activity-text-wrapper">
+            <p class="activity-text">There are <strong>2 new applications</strong> for <strong>Design Lead</strong></p>
+          </div>
+        </div>
+        <div class="activity-line">
+          <span class="activity-icon close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </span>
+          <div class="activity-text-wrapper">
+            <p class="activity-text">Your teammate, <strong>Wade Wilson</strong> has closed the job post of <strong>Back-End Developer</strong></p>
+          </div>
+        </div>
+        <div class="activity-line">
+          <span class="activity-icon draft">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-minus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </span>
+          <div class="activity-text-wrapper">
+            <p class="activity-text">You have drafted a job post for <strong>HR Specialist</strong></p>
+            <a href="#" class="activity-link">Complete Now</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+    <script>
+     var chart    = document.getElementById('chart').getContext('2d'),
+    gradient = chart.createLinearGradient(0, 0, 0, 450);
+
+gradient.addColorStop(0, 'rgba(0, 199, 214, 0.32)');
+gradient.addColorStop(0.3, 'rgba(0, 199, 214, 0.1)');
+gradient.addColorStop(1, 'rgba(0, 199, 214, 0)');
+
+
+var data  = {
+    labels: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October', 'November','December' ],
+    datasets: [{
+			label: 'Applications',
+			backgroundColor: gradient,
+			pointBackgroundColor: '#00c7d6',
+			borderWidth: 1,
+			borderColor: '#0e1a2f',
+			data: [60, 45, 80, 30, 35, 55,25,80,40,50,80,50]
+    }]
+};
+
+var options = {
+	responsive: true,
+	maintainAspectRatio: true,
+	animation: {
+		easing: 'easeInOutQuad',
+		duration: 520
+	},
+	scales: {
+		yAxes: [{
+      ticks: {
+        fontColor: '#5e6a81'
+      },
+			gridLines: {
+				color: 'rgba(200, 200, 200, 0.08)',
+				lineWidth: 1
+			}
+		}],
+    xAxes:[{
+      ticks: {
+        fontColor: '#5e6a81'
+      }
+    }]
+	},
+	elements: {
+		line: {
+			tension: 0.4
+		}
+	},
+	legend: {
+		display: false
+	},
+	point: {
+		backgroundColor: '#00c7d6'
+	},
+	tooltips: {
+		titleFontFamily: 'Poppins',
+		backgroundColor: 'rgba(0,0,0,0.4)',
+		titleFontColor: 'white',
+		caretSize: 5,
+		cornerRadius: 2,
+		xPadding: 10,
+		yPadding: 10
+	}
+};
+
+var chartInstance = new Chart(chart, {
+    type: 'line',
+    data: data,
+		options: options
+});
+
+document.querySelector('.open-right-area').addEventListener('click', function () {
+    document.querySelector('.app-right').classList.add('show');
+});
+
+document.querySelector('.close-right').addEventListener('click', function () {
+    document.querySelector('.app-right').classList.remove('show');
+});
+
+document.querySelector('.menu-button').addEventListener('click', function () {
+    document.querySelector('.app-left').classList.add('show');
+});
+
+document.querySelector('.close-menu').addEventListener('click', function () {
+    document.querySelector('.app-left').classList.remove('show');
+});
+    </script>
+
+</body>
 </html>
