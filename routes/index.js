@@ -41,7 +41,7 @@ router.post('/sendOtp',sendOtp)
 router.post('/verifyingOtp',verifyingOtp)
 
 //Router to Reset password
-router.put('/resetpassword', resetpassword)
+router.post('/resetpassword', resetpassword)
 
 
 module.exports = router
